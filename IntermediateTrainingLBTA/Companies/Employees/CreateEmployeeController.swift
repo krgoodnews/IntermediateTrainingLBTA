@@ -28,6 +28,15 @@ class CreateEmployeeController: UIViewController {
 		$0.translatesAutoresizingMaskIntoConstraints = false
 	}
 	
+	let birthdayLabel = UILabel().then {
+		$0.text = "Birthday"
+		$0.translatesAutoresizingMaskIntoConstraints = false
+	}
+	let birthdayTextField = UITextField().then {
+		$0.placeholder = "MM/DD/YYYY"
+		$0.translatesAutoresizingMaskIntoConstraints = false
+	}
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
@@ -38,7 +47,6 @@ class CreateEmployeeController: UIViewController {
 		
 		view.backgroundColor = .darkBlue
 		
-		_ = setupLightBlueBackgroundView(height: 50)
 		setupUI()
 		
 		navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(handleSave))
@@ -47,10 +55,31 @@ class CreateEmployeeController: UIViewController {
 	@objc private func handleSave() {
 		guard let name = nameTextField.text else { return }
 		guard let company = self.company else { return }
+
+		// turn birthdayTF.text into a date object
+		guard let birthdayText = birthdayTextField.text else { return }
+		
+		// let's perform the validation step here
+		if birthdayText.isEmpty {
+			showError(title: "Empty Birthday", message: "You have not entered a birthday")
+			return
+		}
+		
+		
+		let dateFormatter = DateFormatter()
+		dateFormatter.dateFormat = "MM/dd/yyyy"
+		guard let birthdatDate = dateFormatter.date(from: birthdayText) else {
+			showError(title: "Bad Date", message: "Birthday date entered not valid")
+
+			return
+		}
+		
+		
+		
+		
 		
 		// where do we get company from?
-		
-		let tuple = CoreDataManager.shared.createEmployee(employeeName: name, company: company)
+		let tuple = CoreDataManager.shared.createEmployee(employeeName: name, birthday: birthdatDate, company: company)
 		
 		if let error = tuple.1 {
 			print(error)
@@ -63,12 +92,19 @@ class CreateEmployeeController: UIViewController {
 		}
 	}
 	
+	private func showError(title: String, message: String) {
+		let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+		alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+		present(alertController, animated: true, completion: nil)
+		return
+	}
+	
 	private func setupUI() {
+		_ = setupLightBlueBackgroundView(height: 100)
 		
 		view.addSubview(nameLabel)
 		nameLabel.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
 		nameLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16).isActive = true
-		//		nameLabel.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
 		nameLabel.widthAnchor.constraint(equalToConstant: 100).isActive = true
 		nameLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
 		
@@ -78,5 +114,16 @@ class CreateEmployeeController: UIViewController {
 		nameTextField.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
 		nameTextField.heightAnchor.constraint(equalTo: nameLabel.heightAnchor).isActive = true
 		
+		view.addSubview(birthdayLabel)
+		birthdayLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor).isActive = true
+		birthdayLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16).isActive = true
+		birthdayLabel.widthAnchor.constraint(equalToConstant: 100).isActive = true
+		birthdayLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
+		
+		view.addSubview(birthdayTextField)
+		birthdayTextField.topAnchor.constraint(equalTo: birthdayLabel.topAnchor).isActive = true
+		birthdayTextField.leftAnchor.constraint(equalTo: birthdayLabel.rightAnchor).isActive = true
+		birthdayTextField.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+		birthdayTextField.heightAnchor.constraint(equalTo: birthdayLabel.heightAnchor).isActive = true
 	}
 }
