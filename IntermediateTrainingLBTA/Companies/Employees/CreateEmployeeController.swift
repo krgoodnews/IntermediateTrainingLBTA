@@ -37,13 +37,17 @@ class CreateEmployeeController: UIViewController {
 		$0.translatesAutoresizingMaskIntoConstraints = false
 	}
 	
+	let employeeTypeSegmentedControl = UISegmentedControl(items: ["Executive", "Senior Management", "Staff"]).then {
+		$0.selectedSegmentIndex = 0
+		$0.translatesAutoresizingMaskIntoConstraints = false
+		$0.tintColor = .darkBlue
+	}
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
 		navigationItem.title = "Create Employee"
 		
 		setupCancelButton()
-
 		
 		view.backgroundColor = .darkBlue
 		
@@ -75,11 +79,11 @@ class CreateEmployeeController: UIViewController {
 		}
 		
 		
-		
+		guard let employeeType = employeeTypeSegmentedControl.titleForSegment(at: employeeTypeSegmentedControl.selectedSegmentIndex) else { return }
 		
 		
 		// where do we get company from?
-		let tuple = CoreDataManager.shared.createEmployee(employeeName: name, birthday: birthdatDate, company: company)
+		let tuple = CoreDataManager.shared.createEmployee(employeeName: name, employeeType: employeeType, birthday: birthdatDate, company: company)
 		
 		if let error = tuple.1 {
 			print(error)
@@ -100,7 +104,9 @@ class CreateEmployeeController: UIViewController {
 	}
 	
 	private func setupUI() {
-		_ = setupLightBlueBackgroundView(height: 100)
+		_ = setupLightBlueBackgroundView(height: 150)
+		
+		
 		
 		view.addSubview(nameLabel)
 		nameLabel.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
@@ -125,5 +131,12 @@ class CreateEmployeeController: UIViewController {
 		birthdayTextField.leftAnchor.constraint(equalTo: birthdayLabel.rightAnchor).isActive = true
 		birthdayTextField.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
 		birthdayTextField.heightAnchor.constraint(equalTo: birthdayLabel.heightAnchor).isActive = true
+		
+		
+		view.addSubview(employeeTypeSegmentedControl)
+		employeeTypeSegmentedControl.topAnchor.constraint(equalTo: birthdayLabel.bottomAnchor).isActive = true
+		employeeTypeSegmentedControl.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16).isActive = true
+		employeeTypeSegmentedControl.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16).isActive = true
+		employeeTypeSegmentedControl.heightAnchor.constraint(equalToConstant: 34).isActive = true
 	}
 }
