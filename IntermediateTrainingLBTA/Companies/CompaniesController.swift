@@ -19,7 +19,10 @@ class CompaniesController: UITableViewController {
 		
 		self.companies = CoreDataManager.shared.fetchCompanies()
 		
-		navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Reset", style: .plain, target: self, action: #selector(handleReset))
+		navigationItem.leftBarButtonItems = [
+			UIBarButtonItem(title: "Reset", style: .plain, target: self, action: #selector(handleReset)),
+			UIBarButtonItem(title: "Do Work", style: .plain, target: self, action: #selector(doWork))
+		]
 		
 		view.backgroundColor = .white
 		navigationItem.title = "Companies"
@@ -32,6 +35,25 @@ class CompaniesController: UITableViewController {
 		//		tableView.separatorStyle = .none
 		tableView.tableFooterView = UIView() // blank View
 		tableView.register(CompanyCell.self, forCellReuseIdentifier: "cellID")
+		
+	}
+	@objc private func doWork() {
+		print("Trying to do work...")
+		
+		// GCD - Grand Central Dispatch
+		CoreDataManager.shared.persistentContainer.performBackgroundTask({ (backgroundContext) in
+			(0...210000).forEach { (value) in
+				print(value)
+				let company = Company(context: backgroundContext)
+				company.name = String(value)
+			}
+			
+			do {
+				try backgroundContext.save()
+			} catch let err {
+				print("Failed to save: ", err)
+			}
+		})
 		
 	}
 	
