@@ -21,7 +21,7 @@ class CompaniesController: UITableViewController {
 		
 		navigationItem.leftBarButtonItems = [
 			UIBarButtonItem(title: "Reset", style: .plain, target: self, action: #selector(handleReset)),
-			UIBarButtonItem(title: "Do Work", style: .plain, target: self, action: #selector(doWork))
+			UIBarButtonItem(title: "Do Updates", style: .plain, target: self, action: #selector(doUpdates))
 		]
 		
 		view.backgroundColor = .white
@@ -37,24 +37,46 @@ class CompaniesController: UITableViewController {
 		tableView.register(CompanyCell.self, forCellReuseIdentifier: "cellID")
 		
 	}
-	@objc private func doWork() {
-		print("Trying to do work...")
-		
-		// GCD - Grand Central Dispatch
-		CoreDataManager.shared.persistentContainer.performBackgroundTask({ (backgroundContext) in
-			(0...210000).forEach { (value) in
-				print(value)
-				let company = Company(context: backgroundContext)
-				company.name = String(value)
-			}
+	
+	
+	/// background thread
+	@objc private func doUpdates() {
+		print("Trying to do update companies on a background context...")
+
+		CoreDataManager.shared.persistentContainer.performBackgroundTask { (backgroundContext) in
+			
+			let request: NSFetchRequest<Company> = Company.fetchRequest()
 			
 			do {
-				try backgroundContext.save()
+				let companies = try backgroundContext.fetch(request)
+				companies.forEach({ (company) in
+					print(company.name ?? "")
+					company.name = "B: \(company.name ?? "")"
+				})
+				
+				do {
+					try backgroundContext.save()
+					
+					// let's try to update the UI after a save
+					DispatchQueue.main.async {
+						
+						// reset will forget all of the objects you've fetch before
+						CoreDataManager.shared.persistentContainer.viewContext.reset()
+						
+						// you don't want to refetch everything if you're just simply update on or two companies
+						self.companies = CoreDataManager.shared.fetchCompanies()
+						
+						// is there a way to just merge the changes that you made onto the main view context?
+						
+						self.tableView.reloadData()
+					}
+				} catch let saveErr {
+					print("Failed to save on background:", saveErr)
+				}
 			} catch let err {
-				print("Failed to save: ", err)
+				print("Failed to fetch companies on background:", err)
 			}
-		})
-		
+		}
 	}
 	
 	/// Reset all Company Objects
@@ -63,9 +85,6 @@ class CompaniesController: UITableViewController {
 		
 		let context = CoreDataManager.shared.persistentContainer.viewContext
 		
-		//		companies.forEach { company in
-		//			context.delete(company)
-		//		}
 		
 		let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: Company.fetchRequest())
 		
