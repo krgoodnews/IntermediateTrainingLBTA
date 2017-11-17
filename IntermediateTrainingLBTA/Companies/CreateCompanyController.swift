@@ -132,6 +132,7 @@ class CreateCompanyController: UIViewController, UINavigationControllerDelegate,
 		companyImgView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
 		companyImgView.widthAnchor.constraint(equalToConstant: 100).isActive = true
 		
+
 		view.addSubview(nameLabel)
 		nameLabel.topAnchor.constraint(equalTo: companyImgView.bottomAnchor).isActive = true
 		nameLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16).isActive = true
