@@ -106,7 +106,7 @@ class EmployeesController: UITableViewController, CreateEmployeeControllerDelega
 		return cell
 	}
 	override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-		return 50
+		return 60
 	}
 	
 
@@ -121,13 +121,13 @@ class EmployeesController: UITableViewController, CreateEmployeeControllerDelega
 		
 		let employee = allEmployees[indexPath.section][indexPath.row]
 		
-		cell.textLabel?.text = employee.name
+		cell.textLabel?.text = employee.fullName
 		
 
 		if let birthday = employee.employeeInformation?.birthDay {
 			let dateFormatter = DateFormatter()
 			dateFormatter.dateFormat = "MMM dd, yyyy"
-			cell.textLabel?.text = "\(employee.name ?? "")     \(dateFormatter.string(from: birthday))"
+			cell.textLabel?.text = "\(employee.fullName ?? "")     \(dateFormatter.string(from: birthday))"
 		}
 //		if let taxID = employee.employeeInformation?.taxID {
 //			cell.textLabel?.text = "\(employee.name ?? "")   \(taxID)"
