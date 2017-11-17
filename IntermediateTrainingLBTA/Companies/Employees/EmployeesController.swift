@@ -95,13 +95,15 @@ class EmployeesController: UITableViewController, CreateEmployeeControllerDelega
 	}
 	
 	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-		let label = IndentedLabel().then {
-			$0.text = employeeTypes[section]
+		
+		let cell = UITableViewCell().then {
+			$0.textLabel?.text = employeeTypes[section]
+//			$0.textLabel?.backgroundColor = .lightBlue
 			$0.backgroundColor = .lightBlue
-			$0.textColor = .darkBlue
-			$0.font = .boldSystemFont(ofSize: 16)
+			$0.textLabel?.textColor = .darkBlue
+			$0.textLabel?.font = .boldSystemFont(ofSize: 16)
 		}
-		return label
+		return cell
 	}
 	override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
 		return 50
