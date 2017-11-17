@@ -95,6 +95,8 @@ class CompanyiesAutoUpdateController: UITableViewController, NSFetchedResultsCon
 		
 		try? context.save()
 	}
+	
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
@@ -108,10 +110,11 @@ class CompanyiesAutoUpdateController: UITableViewController, NSFetchedResultsCon
 		tableView.backgroundColor = .darkBlue
 		tableView.register(CompanyCell.self, forCellReuseIdentifier: cellID)
 
-		fetchedResultsController.fetchedObjects?.forEach({ (company) in
-			print(company.name ?? "")
-		})
-		
+//		fetchedResultsController.fetchedObjects?.forEach({ (company) in
+//			print(company.name ?? "")
+//		})
+
+		Service.shared.downloadCompaniesFromServer()
 	}
 	
 	// MARK: TableView
