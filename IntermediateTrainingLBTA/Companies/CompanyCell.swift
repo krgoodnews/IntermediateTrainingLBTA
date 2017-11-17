@@ -16,6 +16,8 @@ class CompanyCell: UITableViewCell {
 			nameFoundedDateLabel.text = company?.name
 			if let imgData = company?.imageData {
 				companyImgView.image = UIImage(data: imgData)
+			} else {
+				companyImgView.image = #imageLiteral(resourceName: "select_photo_empty")
 			}
 			
 			if let name = company?.name, let founded = company?.founded {
