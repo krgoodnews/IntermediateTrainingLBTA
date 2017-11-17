@@ -12,6 +12,7 @@
 		EF2A4C081FA19296008303BB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EF2A4C071FA19296008303BB /* Assets.xcassets */; };
 		EF2A4C0B1FA19296008303BB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF2A4C091FA19296008303BB /* LaunchScreen.storyboard */; };
 		EF4FF2981FBB0D19005C3510 /* EmployeeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4FF2971FBB0D19005C3510 /* EmployeeType.swift */; };
+		EF6D23591FBEC148004D2E6E /* CompanyiesAutoUpdateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6D23581FBEC148004D2E6E /* CompanyiesAutoUpdateController.swift */; };
 		EF7BAA7A1FB2A5AD00BC6BA1 /* CompanyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7BAA791FB2A5AD00BC6BA1 /* CompanyCell.swift */; };
 		EF7BAA7D1FB2DA0F00BC6BA1 /* CompaniesController+CreateCompany.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7BAA7C1FB2DA0F00BC6BA1 /* CompaniesController+CreateCompany.swift */; };
 		EF7BAA7F1FB2DACF00BC6BA1 /* CompaniesController+UITawbleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7BAA7E1FB2DACF00BC6BA1 /* CompaniesController+UITawbleView.swift */; };
@@ -34,6 +35,7 @@
 		EF2A4C0A1FA19296008303BB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EF2A4C0C1FA19296008303BB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EF4FF2971FBB0D19005C3510 /* EmployeeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeType.swift; sourceTree = "<group>"; };
+		EF6D23581FBEC148004D2E6E /* CompanyiesAutoUpdateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyiesAutoUpdateController.swift; sourceTree = "<group>"; };
 		EF7BAA791FB2A5AD00BC6BA1 /* CompanyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyCell.swift; sourceTree = "<group>"; };
 		EF7BAA7C1FB2DA0F00BC6BA1 /* CompaniesController+CreateCompany.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CompaniesController+CreateCompany.swift"; sourceTree = "<group>"; };
 		EF7BAA7E1FB2DACF00BC6BA1 /* CompaniesController+UITawbleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CompaniesController+UITawbleView.swift"; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 				EF9C67941FA202AE00A2ADE3 /* CreateCompanyController.swift */,
 				EF7BAA791FB2A5AD00BC6BA1 /* CompanyCell.swift */,
 				EF9C67921FA1DE7600A2ADE3 /* Company.swift */,
+				EF6D23581FBEC148004D2E6E /* CompanyiesAutoUpdateController.swift */,
 			);
 			path = Companies;
 			sourceTree = "<group>";
@@ -235,6 +238,7 @@
 				EF81E1671FA4187A00677395 /* IntermediateTraningDateModel.xcdatamodeld in Sources */,
 				EF81E1691FA429FD00677395 /* CoreDataManager.swift in Sources */,
 				EF9C67931FA1DE7600A2ADE3 /* Company.swift in Sources */,
+				EF6D23591FBEC148004D2E6E /* CompanyiesAutoUpdateController.swift in Sources */,
 				EF7BAA7F1FB2DACF00BC6BA1 /* CompaniesController+UITawbleView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
